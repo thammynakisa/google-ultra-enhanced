@@ -47,7 +47,7 @@
 #g1-zc-body{padding:8px 10px 9px;display:flex;flex-direction:column;gap:7px}
 #g1-zc-status{padding:5px 8px;border-radius:8px;border:1px solid #c7e7f7;background:#eef8ff;color:#176a8f;font-size:11px;line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .g1-dark #g1-zc-status{background:#1a2530;border-color:#264050;color:#5cb8d8}
-#g1-zc-sku-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px}
+#g1-zc-sku-row{display:grid;grid-template-columns:1fr 1fr;gap:5px}
 #g1-zc-period-row{display:grid;grid-template-columns:repeat(4,1fr);gap:5px}
 .g1-zc-chip{appearance:none;border:1px solid #d5e3ef;background:#fff;color:#1c2a3a;border-radius:10px;padding:7px 0;cursor:pointer;text-align:center;font-size:12px;font-weight:700;transition:border-color .15s,background .15s}
 .g1-dark .g1-zc-chip{background:#1e222a;border-color:#2d3340;color:#c0cad4}
@@ -483,21 +483,14 @@
     const skuRow = el("div");
     skuRow.id = "g1-zc-sku-row";
     [
-      ["20tb", "Ultra 20TB"],
-      ["30tb", "Ultra 30TB"],
-      ["2tb", "2TB AI"]
+      ["20tb", "⚡ 20TB $0"],
+      ["30tb", "⚡ 30TB $0"]
     ].forEach(([key, label]) => {
       const b = el("button", "", label);
       b.className = "g1-zc-chip";
       b.dataset.sku = key;
       b.addEventListener("click", (e) => {
         e.stopPropagation();
-        if (key === "2tb") {
-          // 2TB AI: open Gemini Advanced path directly
-          openAltMethod("geminiAdvanced");
-          setStatus("Opening Gemini Advanced...", true);
-          return;
-        }
         const months = (activePreset && activePreset.months) || 12;
         const next = presetBy(key, months) || presetBy(key, 12);
         if (next) selectPreset(next.id);

@@ -30,7 +30,7 @@
       text-overflow: ellipsis;
     }
     .sku, .period { display: grid; gap: 5px; margin-bottom: 8px; }
-    .sku { grid-template-columns: 1fr 1fr 1fr; }
+    .sku { grid-template-columns: 1fr 1fr; }
     .period { grid-template-columns: repeat(4, 1fr); }
     .chip {
       appearance: none;
@@ -97,9 +97,8 @@
   <div id="popup-status" class="status">Select plan then open payment</div>
 
   <div id="sku-row" class="sku">
-    <button type="button" class="chip" data-sku="20tb">Ultra 20TB</button>
-    <button type="button" class="chip" data-sku="30tb">Ultra 30TB</button>
-    <button type="button" class="chip" data-sku="2tb">2TB AI</button>
+    <button type="button" class="chip" data-sku="20tb">⚡ 20TB $0</button>
+    <button type="button" class="chip" data-sku="30tb">⚡ 30TB $0</button>
   </div>
   <div id="period-row" class="period">
     <button type="button" class="chip" data-months="12">12mo</button>

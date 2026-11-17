@@ -52,11 +52,6 @@
   /* ─── SKU chips ─── */
   document.querySelectorAll("#sku-row .chip").forEach((b) => {
     b.addEventListener("click", () => {
-      if (b.dataset.sku === "2tb") {
-        // 2TB AI: open Gemini Advanced directly
-        openMethod("geminiAdvanced");
-        return;
-      }
       skuKey = b.dataset.sku;
       selectCurrent();
     });
