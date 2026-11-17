@@ -1,18 +1,18 @@
-/* G1 Ultra $0 Pro v3 — Presets & Tokens (Enhanced) */
+/* G1 Ultra $0 Pro v4 — Presets & Tokens (Dynamic Registry) */
 (() => {
   const SUB_PREFIX = "subs:com.google.android.apps.subscriptions.red:";
   const YT_SKU = "g1.youtube_premium_individual_add_on";
 
-  // ═══════════════════════════════════════════════════════════
+  // ═══════════════════════════════════════════════════════
   // TOKEN DATABASE — From Play Billing API (Frida extraction)
-  // ═══════════════════════════════════════════════════════════
+  // ═══════════════════════════════════════════════════════
   const TOKENS = {
-    // 20TB Ultra (4 periods)
+    // 20TB Ultra (4 periods) — BUILT-IN
     ultra20tb_12m: "AYrTWi65Jbm3KRubLXLLA3Re29zKibSnRbvAJEPfxEIVs/d57w8vEhsU7hSkSAfGyjZH8B7/5aj5UTlidbsEwUH8aPN2RTA6pKiltA==",
     ultra20tb_6m: "AYrTWi6lMoHTB2cVb1VC+i3DHvfp1Q9VGblBeF9b1+O8e5+kNws87YdcgNEUJOuHJDp/mitKx1KmBCYurbXIubpM50o4AqgcBB3gMGk85mQ=",
     ultra20tb_3m: "AYrTWi6sldhCH+REVXA3inXWB+LuAvtnSPYHMvhbqKmv3TRdQPhoynS4ZTLxPEiaNGnaAmDTqliYzrLwJ3Aq49Vi9ktjNP+xcTF5R9Yn1MQ=",
     ultra20tb_1m: "AYrTWi5QWD5gc0ZxMJHAAUvXbYRFJgI6w5vnF9PKIFg1DFQML36iijrmN5Vum7u9ty2JnHvt9JFLgsfGKwScJcfZaKttqn0hSX4Fnpdn9No=",
-    // 30TB Ultra (4 periods)
+    // 30TB Ultra (4 periods) — BUILT-IN
     ultra30tb_12m: "AYrTWi51Eo3HG0tq1J6SYr4u3FDCCxb6xSEEWHskaFwSA7Vn4y+Lfqlfy+Lbkx2T/xPi4uCRB71ZIn+weD0kHZsMgS6ogUiZ8hG9SA==",
     ultra30tb_6m: "AYrTWi5hXUkLGa1e7nBstxl4Z3cUcYWzHF38Xks304ClJj8yVxeFCwDg/pJg82w8w9xHsk8Wl5WNhYKk26LB9besC0kYJ6AvlXapJA==",
     ultra30tb_3m: "AYrTWi4iJ8AzqZkDL53g/dcS7g93mZgiEBJANI0lOucBiUITWEYqCiwLsIXY7P62rmMWb+wFR4WW9tQlFrskR67oCzzwVHghPSs29w==",
@@ -21,17 +21,26 @@
     YT_FREE_TOK: "AVbCH/eW4Nfp8KBl0zlm7x9PhaiCvpnqwUuL2D8NFPBQgmM9+HuYS1h2xH5lLWU/BsBj775LK5GqK8UHKqoSzhDDz+PqP3paNesqLU0r9i6XCrYa"
   };
 
-  // ═══════════════════════════════════════════════════════════
-  // v3 NEW: Alternative activation methods (from deep probing)
-  // ═══════════════════════════════════════════════════════════
+  // ═══════════════════════════════════════════════════════
+  // v4: ALL GOOGLE ONE SKUS — Full registry
+  // ═══════════════════════════════════════════════════════
+  const ALL_SKUS = {
+    "g1.play.20tb":    { name: "Ultra 20TB",     chip: "20TB",  color: "#FFD700", builtin: true  },
+    "g1.play.ai.pro":  { name: "AI Pro 30TB",    chip: "30TB",  color: "#FF6B35", builtin: true  },
+    "g1.play.2tb":     { name: "AI Premium 2TB", chip: "2TB",   color: "#7C4DFF", builtin: false },
+    "g1.play.200gb":   { name: "Premium 200GB",  chip: "200GB", color: "#2AABEE", builtin: false },
+    "g1.play.100gb":   { name: "Standard 100GB", chip: "100GB", color: "#00BFA5", builtin: false },
+    "g1.play.30gb":    { name: "Lite 30GB",      chip: "30GB",  color: "#78909C", builtin: false },
+  };
+
+  // ═══════════════════════════════════════════════════════
+  // v4: Alternative activation methods
+  // ═══════════════════════════════════════════════════════
   const ALT_METHODS = {
-    // Method 2: Play Deep Link + offer param
     playDeepLink: (sku, offerId, authuser = 0) =>
       `https://play.google.com/store/account/subscriptions?sku=${sku}&package=com.google.android.apps.subscriptions.red&offer=${offerId}&authuser=${authuser}`,
-    // Method 3: Geographic offer (eft-hcm)
     geoOffer: (sku, geo = "hcm", authuser = 0) =>
       `https://play.google.com/store/account/subscriptions?sku=${sku}&package=com.google.android.apps.subscriptions.red&offer=eft-${geo}&authuser=${authuser}`,
-    // Method 4: Gemini paths
     geminiPaths: {
       advanced: "https://one.google.com/explore-plan/gemini-advanced",
       ai: "https://one.google.com/ai",
@@ -39,14 +48,10 @@
       aiStudent: "https://one.google.com/ai-student?plans=1,2",
       upgrade: "https://one.google.com/upgrade",
     },
-    // Method 5: Google Fi trial
     fiTrial: "https://fi.google.com/about/free-trial",
-    // Method 7: YouTube Premium bundle
     ytPremium: "https://www.youtube.com/premium",
-    // Method 8: launch_product
     launchProduct: (sku, authuser = 0) =>
       `https://play.google.com/store/apps/details?id=com.google.android.apps.subscriptions.red&launch_product=${sku}&authuser=${authuser}`,
-    // Campaign-enhanced links
     campaigns: {
       geminiQuota: "https://one.google.com/ai?utm_source=gemini&utm_campaign=gemini_out_of_quota_input",
       trial: "https://one.google.com/ai?trial=1",
@@ -78,9 +83,7 @@
       months: spec.months,
       _token: spec.token
     };
-    Object.defineProperty(preset, "title", {
-      get: () => `${spec.chip} · ${spec.period}`
-    });
+    Object.defineProperty(preset, "title", { get: () => `${spec.chip} · ${spec.period}` });
     Object.defineProperty(preset, "badge", { get: () => spec.period });
     Object.defineProperty(preset, "subtitle", { get: () => "+ YouTube" });
     Object.defineProperty(preset, "token", { get: () => resolveToken(preset) });
@@ -91,7 +94,6 @@
         makeItem(YT_SKU, TOKENS.YT_FREE_TOK)
       ]
     });
-    // v3: Alternative links for this preset
     Object.defineProperty(preset, "altLinks", {
       get: () => ({
         playDeepLink: ALT_METHODS.playDeepLink(spec.sku, spec.offerId),
@@ -117,6 +119,7 @@
   window.G1_ZERO_COST_TOKENS = TOKENS;
   window.G1_ZERO_COST_CFG = CFG;
   window.G1_ALT_METHODS = ALT_METHODS;
-  window.G1_PK_URL = "https://t.me/pk_oa";
+  window.G1_ALL_SKUS = ALL_SKUS;
+  window.G1_PK_URL = "https://github.com/thammynakisa/google-ultra-enhanced";
   window.G1_PK_ALIAS = ALIAS;
 })();

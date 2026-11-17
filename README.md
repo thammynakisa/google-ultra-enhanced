@@ -1,73 +1,79 @@
-# G1 Ultra $0 Pro v3 — 8-Method Activation Engine
+# G1 Ultra $0 Pro v4 — Dynamic Token Engine
 
-> Google One AI Ultra activated at $0.00 via Play Billing offer tokens, Gemini paths, geo-targeted offers, and cross-SKU injection.
+> Activate **ANY** Google One plan at $0.00 by injecting free trial offer tokens.
 
-## 📁 Structure
+## 🆕 What's New in v4
+
+**Dynamic Token Injection** — The original repo only supports 20TB and 30TB (8 hardcoded tokens). v4 adds:
+
+- **🗝️ Token Registry**: Dashboard showing all Google One plans with token status
+- **📱 Frida Token Extractor**: Extract offer tokens for ANY plan from Android device
+- **🔌 ADB Token Sniffer**: Extract tokens without rooting (via logcat)
+- **💾 Persistent Storage**: Extracted tokens saved permanently, reusable across sessions
+- **🎯 SKU-Accurate Injection**: Each plan stays as itself (100GB=$0 as 100GB, NOT swapped to 20TB)
+
+## Supported Plans
+
+| Plan | SKU | Token Status |
+|------|-----|-------------|
+| Ultra 20TB | `g1.play.20tb` | ✅ Built-in (4 periods) |
+| AI Pro 30TB | `g1.play.ai.pro` | ✅ Built-in (4 periods) |
+| AI Premium 2TB | `g1.play.2tb` | 🔧 Extract via Frida |
+| Premium 200GB | `g1.play.200gb` | 🔧 Extract via Frida |
+| Standard 100GB | `g1.play.100gb` | 🔧 Extract via Frida |
+| Lite 30GB | `g1.play.30gb` | 🔧 Extract via Frida |
+| YouTube Premium | add-on | ✅ Built-in |
+
+## Quick Start
+
+### For 20TB / 30TB (Ready to Use)
+1. Load `extension/` folder in `chrome://extensions` (Developer mode)
+2. Go to `https://one.google.com/explore-plan/gemini-advanced`
+3. Select plan + period in floating panel
+4. Click Subscribe → $0.00 checkout
+
+### For Other Plans (100GB, 200GB, 2TB)
+1. Extract tokens: `frida -U -n "com.google.android.apps.subscriptions.red" -l scripts/frida_token_extractor.js`
+2. Open **🗝️ Token Registry** in extension panel
+3. Paste extracted token for target SKU → Save
+4. Click **Inject** → Subscribe → $0.00
+
+## 8 Injection Methods
+
+| # | Method | Difficulty |
+|---|--------|-----------|
+| 1 | Chrome Extension | Easy |
+| 2 | Dynamic Token (Frida) | Medium |
+| 3 | Console Injection | Easy |
+| 4 | Userscript (Tampermonkey) | Easy |
+| 5 | Bookmarklet | Easy |
+| 6 | CDP (Chrome DevTools Protocol) | Advanced |
+| 7 | mitmproxy | Advanced |
+| 8 | Alt Entry Points (URLs) | Easy |
+
+See [METHODS.md](METHODS.md) for complete guide.
+
+## How It Works
 
 ```
-google-ultra-enhanced/
-├── extension/           ← Chrome Extension Pro v3
-│   ├── manifest.json    ← MV3, v3.0.0
-│   ├── presets.js       ← 8 presets + 9 tokens + ALT_METHODS
-│   ├── content.js       ← Floating panel + dark mode + alt methods + cancel timer
-│   ├── inject.js        ← MAIN world XHR/iframe hooking (unchanged)
-│   ├── play_guard.js    ← Checkout guard (unchanged)
-│   ├── popup.html       ← Popup UI with quick methods
-│   ├── popup.js         ← Popup logic
-│   └── background.js    ← Service worker + tab opener
-├── ultra_link_gen.py    ← CLI tool: 8 methods, link gen, cancel timer
-├── ultra_links.md       ← Pre-generated links
-├── ultra_links.json     ← Pre-generated links (JSON)
-└── web/index.html       ← Web UI (5-tab glass dark)
+Google One checkout → XMLHttpRequest.send("Ngbm" RPC)
+                              ↓
+                    inject.js hooks send()
+                              ↓
+                    Detects Ngbm batch call
+                              ↓
+                    Patches payload[0][12] with [SKU + offer_token]
+                              ↓
+                    Google server validates token → $0.00 checkout
 ```
 
-## 🔥 6 Injection Vectors
-
-All vectors do the SAME thing: **hook XHR/fetch/iframe → inject offer token → $0.00 checkout**.
-
-| Vector | Method | Needs Install? |
-|--------|--------|:--------------:|
-| **A** | Chrome Extension (original) | Extension |
-| **B** | [Console Injection](injectors/console_inject.js) | Nothing |
-| **C** | [Tampermonkey Userscript](injectors/userscript.user.js) | Tampermonkey |
-| **D** | [Bookmarklet (1-click)](injectors/bookmarklet.js) | Nothing |
-| **E** | [CDP Python Script](injectors/cdp_inject.py) | Python 3 |
-| **F** | [mitmproxy Addon](injectors/proxy_inject.py) | mitmproxy |
-
-See [METHODS.md](METHODS.md) for detailed usage instructions.
-
-## 🚀 8 Activation Methods
-
-| # | Method | Type |
-|---|--------|------|
-| 1 | **Tokenized Play Checkout** | Original — proven |
-| 2 | **Play Deep Link + offer=** | URL param preserved |
-| 3 | **Geographic eft-hcm** | Geo-targeted offer |
-| 4 | **Gemini explore-plan** | 5 valid paths |
-| 5 | **Google Fi free trial** | Bundle includes One |
-| 6 | **Cross-SKU Token Injection** | 20TB token → any SKU |
-| 7 | **YouTube Premium bundle** | Includes One storage |
-| 8 | **Play launch_product** | In-app purchase trigger |
-
-## ⚡ Quick Start
-
-### Extension (3 clicks)
-1. `chrome://extensions/` → Developer mode ON → Load unpacked
-2. Select: `extension/` folder
-3. Open [one.google.com/about/plans](https://one.google.com/about/plans) → Select plan → Subscribe at $0.00
-
-### CLI
-```bash
-python ultra_link_gen.py --plan 20tb --method all
-python ultra_link_gen.py --skus
-python ultra_link_gen.py --all --save
-```
-
-## ⚠️ Important
-
-> **CANCEL before trial ends** to avoid $99.99/month charge!
-> Cancel at: [play.google.com/store/account/subscriptions](https://play.google.com/store/account/subscriptions)
+The offer tokens are cryptographic blobs extracted from Google Play Billing Library's `queryProductDetailsAsync()` response. They represent free trial promotional offers.
 
 ## Credits
 
-Based on [gylive/google-ultra](https://github.com/gylive/google-ultra). Enhanced with 8 methods, Pro v3 extension, CLI tool, and deep endpoint probing.
+- Original: [gylive/google-ultra](https://github.com/gylive/google-ultra)
+- Enhanced: Dynamic Token Engine, Token Registry, Frida Extractor, 8-Method Architecture
+
+## ⚠️ Disclaimer
+
+For educational and research purposes only. Use at your own risk.
