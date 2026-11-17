@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>G1 Ultra $0 Pro v3</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      width: 320px;
+      color: #1c2a3a;
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+      font-size: 12px;
+      padding: 12px;
+      background: linear-gradient(180deg, #f7fbff 0%, #eef5fb 100%);
+    }
+    .head { display: flex; align-items: center; gap: 9px; margin-bottom: 10px; }
+    .logo { width: 36px; height: 36px; border-radius: 10px; object-fit: cover; display: block; box-shadow: 0 2px 8px rgba(42,171,238,.22); }
+    .titles b { display: block; font-size: 14px; color: #102033; }
+    .titles span { display: block; font-size: 10px; color: #5f7388; margin-top: 2px; }
+    .status {
+      padding: 6px 8px;
+      border-radius: 8px;
+      border: 1px solid #c7e7f7;
+      background: #eef8ff;
+      color: #176a8f;
+      font-size: 11px;
+      margin-bottom: 9px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .sku, .period { display: grid; gap: 5px; margin-bottom: 8px; }
+    .sku { grid-template-columns: 1fr 1fr 1fr; }
+    .period { grid-template-columns: repeat(4, 1fr); }
+    .chip {
+      appearance: none;
+      border: 1px solid #d5e3ef;
+      background: #fff;
+      color: #1c2a3a;
+      border-radius: 10px;
+      padding: 7px 0;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .chip:hover { border-color: #2AABEE; background: #f3faff; }
+    .chip.is-on {
+      border-color: #2AABEE;
+      background: #e7f6ff;
+      color: #0b6fa0;
+      box-shadow: 0 0 0 1px rgba(42,171,238,.18) inset;
+    }
+    .sep { border-top: 1px solid #e6eef6; margin: 8px 0; }
+    .section-title { font-size: 11px; font-weight: 700; color: #33485c; margin-bottom: 6px; display: flex; align-items: center; gap: 5px; }
+    .quick-links { display: flex; flex-direction: column; gap: 4px; margin-bottom: 8px; }
+    .qlink {
+      appearance: none;
+      border: 1px solid #d5e3ef;
+      background: #fff;
+      color: #1c2a3a;
+      border-radius: 8px;
+      padding: 6px 8px;
+      cursor: pointer;
+      font-size: 11px;
+      text-align: left;
+      transition: border-color .15s, background .15s;
+    }
+    .qlink:hover { border-color: #2AABEE; background: #f3faff; }
+    .foot { display: flex; gap: 5px; }
+    .foot button, .foot a {
+      flex: 1;
+      height: 28px;
+      border-radius: 8px;
+      border: 1px solid #d5e3ef;
+      background: #fff;
+      color: #33485c;
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    #popup-pk { border-color: #b7e4f8; color: #1480b0; background: #f3fbff; }
+    .version { text-align: center; font-size: 9px; color: #8a9ab0; margin-top: 8px; }
+  </style>
+</head>
+<body>
+  <div class="head">
+    <img class="logo" src="icons/icon48.png" alt="G1" />
+    <div class="titles">
+      <b>G1 Ultra $0 Pro</b>
+      <span>v3.0 · 8-Method Engine</span>
+    </div>
+  </div>
+
+  <div id="popup-status" class="status">Select plan then open payment</div>
+
+  <div id="sku-row" class="sku">
+    <button type="button" class="chip" data-sku="20tb">Ultra 20TB</button>
+    <button type="button" class="chip" data-sku="30tb">Ultra 30TB</button>
+    <button type="button" class="chip" data-sku="2tb">2TB AI</button>
+  </div>
+  <div id="period-row" class="period">
+    <button type="button" class="chip" data-months="12">12mo</button>
+    <button type="button" class="chip" data-months="6">6mo</button>
+    <button type="button" class="chip" data-months="3">3mo</button>
+    <button type="button" class="chip" data-months="1">1mo</button>
+  </div>
+
+  <div class="sep"></div>
+  <div class="section-title">⚡ Quick Methods</div>
+  <div class="quick-links">
+    <button type="button" class="qlink" data-method="geminiAdvanced">🤖 Gemini Advanced</button>
+    <button type="button" class="qlink" data-method="geminiAi">✨ Gemini AI</button>
+    <button type="button" class="qlink" data-method="geminiStudent">🎓 Gemini Student Plan</button>
+    <button type="button" class="qlink" data-method="geminiUpgrade">⬆️ Google One Upgrade</button>
+    <button type="button" class="qlink" data-method="fiTrial">📱 Google Fi Free Trial</button>
+    <button type="button" class="qlink" data-method="ytPremium">🎬 YouTube Premium Bundle</button>
+    <button type="button" class="qlink" data-method="campaignTrial">🎁 Campaign Trial Link</button>
+  </div>
+
+  <div class="sep"></div>
+  <div class="foot">
+    <button id="popup-us-btn" type="button">🇺🇸 OR 97201</button>
+    <button id="popup-activate-btn" type="button">✅ Activated</button>
+    <a id="popup-pk" href="https://github.com/gylive/google-ultra" target="_blank" rel="noopener noreferrer">GitHub</a>
+  </div>
+
+  <div class="version">G1 Ultra $0 Pro v3.0 — 8-Method Activation Engine</div>
+
+  <script src="presets.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>

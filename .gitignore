@@ -1,0 +1,5 @@
+__pycache__/
+*.pyc
+*.bak
+*.v2bak
+scan_report.json

@@ -1,0 +1,875 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ultra Activator Pro v2 — Google One AI Ultra $0</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --bg:#06080d;--card:#0c1018;--border:#1a2030;--border-hover:#2a3a56;
+    --text:#e2e6f0;--muted:#6b7a94;--accent:#3ecf8e;--accent2:#3b6ef0;
+    --danger:#ff6b8a;--warn:#f0a030;
+    --radius:16px;--glass:rgba(12,16,24,.85);
+  }
+  body{background:var(--bg);color:var(--text);font:15px/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  .wrap{max-width:860px;margin:0 auto;padding:40px 20px 120px}
+
+  /* Header */
+  .hero{text-align:center;padding:36px 0 32px;position:relative}
+  .hero::before{content:"";position:absolute;top:-40px;left:50%;transform:translateX(-50%);width:400px;height:400px;background:radial-gradient(circle,rgba(59,110,240,.12) 0%,transparent 70%);pointer-events:none}
+  .hero .logo{font-size:48px;margin-bottom:8px}
+  .hero h1{font-size:32px;font-weight:800;background:linear-gradient(135deg,#e2e6f0,#8891a5);-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:.5px}
+  .hero .sub{color:var(--muted);font-size:14px;margin-top:8px}
+  .hero .stats{display:flex;justify-content:center;gap:24px;margin-top:16px;font-size:13px;color:var(--muted)}
+  .hero .stats span{display:flex;align-items:center;gap:5px}
+  .hero .stats .num{color:var(--accent);font-weight:700}
+
+  /* Tabs */
+  .tab-row{display:flex;gap:4px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:4px;margin-bottom:20px;overflow-x:auto}
+  .tab{flex:1;padding:10px 16px;border-radius:10px;text-align:center;color:var(--muted);cursor:pointer;font-size:13px;font-weight:600;transition:.2s;white-space:nowrap;user-select:none}
+  .tab:hover{color:var(--text);background:rgba(255,255,255,.03)}
+  .tab.active{background:var(--accent2);color:#fff;box-shadow:0 2px 12px rgba(59,110,240,.3)}
+
+  /* Cards */
+  .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:14px;transition:.2s;position:relative;overflow:hidden}
+  .card:hover{border-color:var(--border-hover)}
+  .card .badge{position:absolute;top:0;right:0;background:linear-gradient(135deg,var(--accent2),#5b8df8);color:#fff;font-size:10px;font-weight:700;letter-spacing:1px;padding:5px 16px 5px 20px;border-radius:0 0 0 20px;text-transform:uppercase}
+  .card h2{font-size:17px;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+  .card p{color:var(--muted);font-size:13.5px;margin-bottom:14px}
+
+  /* Buttons */
+  .btn{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.04);color:var(--text);border:1px solid var(--border);border-radius:10px;padding:10px 18px;text-decoration:none;font-size:13.5px;cursor:pointer;transition:.2s;font-weight:500;outline:none}
+  .btn:hover{background:rgba(255,255,255,.07);border-color:var(--border-hover);transform:translateY(-1px)}
+  .btn.primary{background:linear-gradient(135deg,var(--accent2),#5b8df8);border:none;color:#fff;font-weight:600;box-shadow:0 4px 16px rgba(59,110,240,.25)}
+  .btn.primary:hover{box-shadow:0 6px 24px rgba(59,110,240,.35)}
+  .btn.success{background:linear-gradient(135deg,#1a6b4a,#2a8a5a);border:none;color:#fff}
+  .btn.danger{background:rgba(255,100,120,.08);border-color:rgba(255,100,120,.2);color:var(--danger)}
+  .btn.sm{padding:7px 14px;font-size:12px;border-radius:8px}
+  .btn-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+
+  /* Plan Grid */
+  .plan-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-bottom:14px}
+  .plan{border:1px solid var(--border);border-radius:14px;padding:20px;background:rgba(255,255,255,.01);cursor:pointer;transition:.25s;position:relative}
+  .plan:hover{border-color:var(--accent);background:rgba(62,207,142,.03);transform:translateY(-3px);box-shadow:0 8px 28px rgba(62,207,142,.06)}
+  .plan.selected{border-color:var(--accent);background:rgba(62,207,142,.05);box-shadow:0 0 0 1px var(--accent)}
+  .plan .ribbon{position:absolute;right:-1px;top:12px;background:linear-gradient(135deg,var(--accent),#2ab878);color:#0a1f14;font-size:9px;font-weight:800;padding:3px 12px 3px 14px;border-radius:20px 0 0 20px;letter-spacing:.5px;text-transform:uppercase}
+  .plan .name{font-size:18px;font-weight:700;margin-bottom:4px}
+  .plan .trial{color:var(--accent);font-size:14px;font-weight:600;margin-bottom:4px}
+  .plan .after{color:var(--muted);font-size:12px}
+  .plan .sku{font-size:10px;color:#3a4560;margin-top:6px;font-family:monospace}
+
+  /* Result */
+  .result-box{display:none;background:rgba(59,110,240,.03);border:1px solid rgba(59,110,240,.15);border-radius:var(--radius);padding:20px;margin-top:14px;animation:fadeIn .3s}
+  .result-box.show{display:block}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+  .result-box .label{color:var(--accent);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+  .result-box code{display:block;background:rgba(0,0,0,.3);border:1px solid var(--border);border-radius:10px;padding:12px;color:#7a9cc8;font-size:11.5px;word-break:break-all;max-height:120px;overflow:auto;font-family:"JetBrains Mono","Fira Code",monospace;line-height:1.6}
+
+  /* Status */
+  .toast{position:fixed;top:20px;right:20px;padding:14px 20px;border-radius:12px;font-size:13px;font-weight:600;z-index:999;transform:translateX(120%);transition:.3s;max-width:360px}
+  .toast.show{transform:translateX(0)}
+  .toast.ok{background:#0a1f14;border:1px solid #1a4a30;color:var(--accent)}
+  .toast.warn{background:#1f1a0a;border:1px solid #4a3a1a;color:var(--warn)}
+  .toast.err{background:#1f0a0e;border:1px solid #4a1a20;color:var(--danger)}
+
+  /* Options */
+  .opts{display:flex;flex-wrap:wrap;gap:12px;margin:14px 0}
+  .opt{display:flex;align-items:center;gap:7px;color:var(--muted);font-size:13px;cursor:pointer;padding:6px 12px;border:1px solid var(--border);border-radius:8px;transition:.15s;user-select:none}
+  .opt:hover{border-color:var(--border-hover);color:var(--text)}
+  .opt input{accent-color:var(--accent);width:15px;height:15px}
+
+  /* Links Grid */
+  .link-grid{display:grid;grid-template-columns:1fr;gap:8px}
+  .link-item{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.02);border:1px solid var(--border);border-radius:12px;padding:14px 18px;cursor:pointer;transition:.2s}
+  .link-item:hover{border-color:var(--accent2);background:rgba(59,110,240,.03);transform:translateX(4px)}
+  .link-item .icon{font-size:22px;flex-shrink:0;width:36px;height:36px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.03);border-radius:10px}
+  .link-item .info{flex:1;min-width:0}
+  .link-item .info .n{font-size:14px;font-weight:600}
+  .link-item .info .d{font-size:12px;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .link-item .arrow{color:var(--muted);font-size:18px;flex-shrink:0}
+
+  /* Batch */
+  .batch-out{width:100%;min-height:140px;background:rgba(0,0,0,.3);border:1px solid var(--border);color:#7a9cc8;border-radius:12px;padding:14px;font-size:12px;font-family:"JetBrains Mono",monospace;resize:vertical;line-height:1.6}
+
+  /* Advanced Panel */
+  .adv-panel{background:rgba(255,255,255,.01);border:1px solid var(--border);border-radius:var(--radius);padding:20px;margin-top:14px}
+  .adv-panel summary{cursor:pointer;font-weight:600;font-size:14px;color:var(--muted);padding:4px 0;user-select:none}
+  .adv-panel summary:hover{color:var(--text)}
+  .adv-panel .inner{padding-top:14px}
+
+  /* Fingerprint info */
+  .fp-info{background:rgba(0,0,0,.2);border:1px solid var(--border);border-radius:10px;padding:12px;font-size:11px;color:var(--muted);font-family:monospace;word-break:break-all;max-height:80px;overflow:auto;margin-top:10px}
+
+  /* SKU Explorer */
+  .sku-table{width:100%;border-collapse:collapse;margin-top:12px}
+  .sku-table th,.sku-table td{text-align:left;padding:8px 12px;font-size:12.5px;border-bottom:1px solid var(--border)}
+  .sku-table th{color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.5px}
+  .sku-table td{color:var(--text)}
+  .sku-table tr:hover td{background:rgba(255,255,255,.02)}
+  .sku-table .mono{font-family:monospace;font-size:11px;color:#7a9cc8}
+  .sku-table .badge-sm{display:inline-block;font-size:9px;font-weight:700;padding:2px 8px;border-radius:6px;text-transform:uppercase;letter-spacing:.5px}
+  .sku-table .badge-active{background:rgba(62,207,142,.12);color:var(--accent)}
+  .sku-table .badge-probe{background:rgba(240,160,48,.12);color:var(--warn)}
+
+  /* Timer */
+  .timer-box{background:rgba(255,100,120,.04);border:1px solid rgba(255,100,120,.12);border-radius:12px;padding:16px 20px;margin-top:14px;display:none}
+  .timer-box.show{display:block}
+  .timer-box .timer-title{font-size:13px;color:var(--danger);font-weight:600;margin-bottom:6px}
+  .timer-box .countdown{font-size:28px;font-weight:800;color:var(--text);font-family:monospace;letter-spacing:2px}
+  .timer-box p{font-size:12px;color:var(--muted);margin-top:6px}
+
+  /* Footer */
+  .notes{color:var(--muted);font-size:13px;line-height:2.1;margin-top:28px;padding:20px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius)}
+  .notes b{color:#8891a5;font-weight:600}
+  .footer{color:#2a3040;font-size:11px;margin-top:16px;text-align:center}
+
+  /* Inputs */
+  select{background:var(--card);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:13px;cursor:pointer;outline:none}
+  select:focus{border-color:var(--accent2)}
+  input[type=number]{background:var(--card);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:13px;width:80px;outline:none}
+
+  /* Responsive */
+  @media(max-width:600px){
+    .hero h1{font-size:24px}
+    .plan-grid{grid-template-columns:1fr}
+    .tab{font-size:12px;padding:8px 12px}
+  }
+</style>
+</head>
+<body>
+<div id="toast" class="toast"></div>
+<div class="wrap">
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="logo">⚡</div>
+    <h1>Ultra Activator Pro v2</h1>
+    <div class="sub">Google One AI Ultra — Kích hoạt gói cao cấp nhất $0 · Nâng cấp từ gylive/google-ultra</div>
+    <div class="stats">
+      <span>⭐ <span class="num" id="repoStars">840+</span> stars</span>
+      <span>🍴 <span class="num">480+</span> forks</span>
+      <span>🔓 <span class="num">MIT</span> License</span>
+      <span id="loginBadge">👤 <span style="color:var(--muted)">Chưa kiểm tra</span></span>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tab-row">
+    <div class="tab active" data-tab="activate">🎯 Kích hoạt</div>
+    <div class="tab" data-tab="batch">📋 Batch</div>
+    <div class="tab" data-tab="links">🔗 Quick Links</div>
+    <div class="tab" data-tab="explorer">🔍 SKU Explorer</div>
+    <div class="tab" data-tab="timer">⏰ Hủy gia hạn</div>
+  </div>
+
+  <!-- TAB: Activate -->
+  <div id="tab-activate">
+    <div class="card">
+      <span class="badge">Bước 1</span>
+      <h2>🔑 Đăng nhập Google</h2>
+      <p>Dùng tài khoản muốn kích hoạt. Hệ thống sẽ tự detect account đang đăng nhập.</p>
+      <a class="btn" href="https://accounts.google.com/" target="_blank" rel="noopener">Đăng nhập Google →</a>
+    </div>
+
+    <div class="card">
+      <span class="badge">Bước 2</span>
+      <h2>💳 Thêm phương thức thanh toán</h2>
+      <p>Thẻ Visa/Mastercard cần có ≥$1 balance. Không trừ tiền trong trial. Thẻ ảo cũng được.</p>
+      <a class="btn" href="https://pay.google.com/gp/w/u/0/home/paymentmethods" target="_blank" rel="noopener">Quản lý thẻ →</a>
+    </div>
+
+    <div class="card">
+      <span class="badge">Bước 3</span>
+      <h2>🚀 Chọn gói & kích hoạt</h2>
+      <p>Click gói bên dưới → trang Google Play checkout $0 mở ra → xác nhận đăng ký.</p>
+
+      <div class="plan-grid">
+        <div class="plan" data-key="20tb">
+          <span class="ribbon">★ Best Value</span>
+          <div class="name">Ultra 20 TB</div>
+          <div class="trial">🎁 Miễn phí 12 tháng</div>
+          <div class="after">Sau đó US$99.99/tháng</div>
+          <div class="sku">SKU: g1.play.20tb · Offer: eft-12month</div>
+        </div>
+        <div class="plan" data-key="30tb">
+          <div class="name">Ultra Pro 30 TB</div>
+          <div class="trial">🎁 Miễn phí 1 tháng</div>
+          <div class="after">Sau đó US$199.99/tháng</div>
+          <div class="sku">SKU: g1.play.ai.pro · Offer: eft-1month</div>
+        </div>
+        <div class="plan" data-key="2tb">
+          <div class="name">Premium 2 TB + AI</div>
+          <div class="trial">🎁 Miễn phí 3 tháng</div>
+          <div class="after">Sau đó US$9.99/tháng</div>
+          <div class="sku">SKU: g1.play.2tb · Offer: eft-3month</div>
+        </div>
+      </div>
+
+      <div class="opts">
+        <label class="opt"><input type="checkbox" id="optLegacy"> 📌 Fingerprint mặc định (fix lỗi 400)</label>
+        <label class="opt"><input type="checkbox" id="optMulti"> 👥 Multi-account (authuser 0-4)</label>
+        <label class="opt"><input type="checkbox" id="optMac"> 🍎 Mac fingerprint</label>
+      </div>
+
+      <details class="adv-panel">
+        <summary>⚙️ Advanced: Custom authuser & Fingerprint</summary>
+        <div class="inner">
+          <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+            <label style="font-size:13px;color:var(--muted)">authuser: <input type="number" id="customAuth" value="0" min="0" max="20"></label>
+            <button class="btn sm" id="btnCustomGen">Generate custom link</button>
+          </div>
+          <div class="fp-info" id="fpPreview">Fingerprint sẽ hiện ở đây khi tạo link...</div>
+        </div>
+      </details>
+
+      <div class="result-box" id="resultBox">
+        <div class="label" id="resultLabel">Link đã tạo</div>
+        <code id="resultCode"></code>
+        <div class="btn-row">
+          <button class="btn primary" id="btnOpen">🚀 Mở ngay</button>
+          <button class="btn" id="btnCopy">📋 Copy link</button>
+          <button class="btn" id="btnNewTab">🔗 Tab mới</button>
+          <button class="btn" id="btnQR">📱 QR Code</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB: Batch -->
+  <div id="tab-batch" style="display:none">
+    <div class="card">
+      <h2>📋 Batch Link Generator</h2>
+      <p>Tạo links hàng loạt cho nhiều Google account cùng lúc. Hữu ích khi manage nhiều tài khoản.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:14px">
+        <div>
+          <label style="font-size:12px;color:var(--muted);display:block;margin-bottom:4px">Gói:</label>
+          <select id="batchPlan">
+            <option value="20tb" selected>Ultra 20TB — 12 tháng</option>
+            <option value="30tb">Ultra 30TB — 1 tháng</option>
+            <option value="2tb">Premium 2TB — 3 tháng</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:12px;color:var(--muted);display:block;margin-bottom:4px">Số accounts:</label>
+          <select id="batchCount">
+            <option value="3">3</option>
+            <option value="5" selected>5</option>
+            <option value="10">10</option>
+            <option value="20">20</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:12px;color:var(--muted);display:block;margin-bottom:4px">Fingerprint:</label>
+          <select id="batchFP">
+            <option value="auto">Auto-detect</option>
+            <option value="chrome_win">Windows</option>
+            <option value="chrome_mac">macOS</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn primary" id="btnBatchGen">⚡ Generate Batch</button>
+      <div class="result-box" id="batchResultBox">
+        <div class="label">Batch Links</div>
+        <textarea class="batch-out" id="batchOutput" readonly></textarea>
+        <div class="btn-row">
+          <button class="btn" id="btnBatchCopy">📋 Copy tất cả</button>
+          <button class="btn" id="btnBatchDownload">💾 Download .txt</button>
+          <button class="btn" id="btnBatchOpenAll">🚀 Mở tất cả tabs</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB: Quick Links -->
+  <div id="tab-links" style="display:none">
+    <div class="card">
+      <h2>🔗 Quick Activation Links</h2>
+      <p>Links đã tạo sẵn — chỉ cần click. Mở trong browser đã đăng nhập Google account muốn kích hoạt.</p>
+      <div class="link-grid" id="quickLinks"></div>
+    </div>
+    <div class="card" style="margin-top:14px">
+      <h2>📌 Google Account Tools</h2>
+      <div class="link-grid">
+        <a class="link-item" href="https://one.google.com/explore-plan/gemini-advanced" target="_blank">
+          <span class="icon">🌟</span>
+          <div class="info"><div class="n">Google One Plans</div><div class="d">Xem tất cả gói Google One hiện có</div></div>
+          <span class="arrow">→</span>
+        </a>
+        <a class="link-item" href="https://one.google.com/storage" target="_blank">
+          <span class="icon">💿</span>
+          <div class="info"><div class="n">Storage Manager</div><div class="d">Kiểm tra dung lượng đang dùng</div></div>
+          <span class="arrow">→</span>
+        </a>
+        <a class="link-item" href="https://play.google.com/store/account/subscriptions" target="_blank">
+          <span class="icon">📋</span>
+          <div class="info"><div class="n">My Subscriptions</div><div class="d">Kiểm tra & quản lý subscription</div></div>
+          <span class="arrow">→</span>
+        </a>
+        <a class="link-item" href="https://pay.google.com/gp/w/u/0/home/paymentmethods" target="_blank">
+          <span class="icon">💳</span>
+          <div class="info"><div class="n">Payment Methods</div><div class="d">Quản lý thẻ thanh toán</div></div>
+          <span class="arrow">→</span>
+        </a>
+        <a class="link-item" href="https://myaccount.google.com/security" target="_blank">
+          <span class="icon">🔐</span>
+          <div class="info"><div class="n">Account Security</div><div class="d">Bảo mật tài khoản Google</div></div>
+          <span class="arrow">→</span>
+        </a>
+        <a class="link-item" href="https://gemini.google.com/" target="_blank">
+          <span class="icon">🤖</span>
+          <div class="info"><div class="n">Gemini AI</div><div class="d">Truy cập Gemini Advanced sau khi kích hoạt</div></div>
+          <span class="arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB: SKU Explorer -->
+  <div id="tab-explorer" style="display:none">
+    <div class="card">
+      <h2>🔍 SKU & Offer Database</h2>
+      <p>Database đầy đủ các SKU và offer patterns đã biết. Dữ liệu từ Play Billing API queryProductDetailsAsync.</p>
+      <table class="sku-table">
+        <thead>
+          <tr><th>SKU ID</th><th>Tier</th><th>Storage</th><th>Price</th><th>Token</th><th>Status</th></tr>
+        </thead>
+        <tbody id="skuTableBody"></tbody>
+      </table>
+    </div>
+    <div class="card" style="margin-top:14px">
+      <h2>🔑 Offer Patterns</h2>
+      <p>Tất cả offer ID patterns đã phát hiện qua BillingClient và web probe.</p>
+      <div id="offerPatterns" style="display:flex;flex-wrap:wrap;gap:6px;margin-top:10px"></div>
+    </div>
+    <div class="card" style="margin-top:14px">
+      <h2>🧬 Technical Details</h2>
+      <p>Cơ chế hoạt động chi tiết của hệ thống kích hoạt.</p>
+      <details open>
+        <summary style="cursor:pointer;font-weight:600;font-size:13px;color:var(--accent);margin-bottom:8px">📐 URL Structure</summary>
+        <code style="display:block;background:rgba(0,0,0,.3);border:1px solid var(--border);border-radius:10px;padding:12px;color:#7a9cc8;font-size:11px;word-break:break-all;line-height:1.8">
+https://tokenized.play.google.com/eacquire/multiline
+  ?authuser={N}
+  &ear={JSON_ENCODED_ARRAY}
+  &usegapi=1
+  &id=I0_{TIMESTAMP}
+  &_gfid=I0_{TIMESTAMP}
+  &parent=https://one.google.com
+  &rpctoken={RANDOM_7_DIGIT}
+  &jsh={GAPI_PATH}
+
+ear[2]  = [null, null, PATH]       // Google One plans path
+ear[4]  = [FINGERPRINT_B64]        // Browser fingerprint
+ear[13] = [[ITEM]]                 // Subscription item + offer token
+ear[21] = 1                        // Auto-confirm flag
+        </code>
+      </details>
+      <details style="margin-top:10px">
+        <summary style="cursor:pointer;font-weight:600;font-size:13px;color:var(--accent);margin-bottom:8px">🔬 Frida Injection Flow (Android)</summary>
+        <code style="display:block;background:rgba(0,0,0,.3);border:1px solid var(--border);border-radius:10px;padding:12px;color:#7a9cc8;font-size:11px;word-break:break-all;line-height:1.8">
+1. Frida attach → com.google.android.apps.subscriptions.red
+2. DexClassLoader → module_521.apk (Play Billing Library)
+3. BillingClient.queryProductDetailsAsync("g1.play.20tb")
+4. Response: 5 offers → eft-1month ($0 P1M), eft-3month ($0 P3M),
+   eft-6month ($0 P6M), eft-12month ($0 P1Y), full-price
+5. Pick eft-12month (longest free period)
+6. BillingClient.launchBillingFlow() on main thread
+7. User confirms $0 checkout → subscription active
+        </code>
+      </details>
+    </div>
+  </div>
+
+  <!-- TAB: Cancel Timer -->
+  <div id="tab-timer" style="display:none">
+    <div class="card">
+      <h2>⏰ Nhắc nhở hủy gia hạn</h2>
+      <p>Đặt ngày kích hoạt → hệ thống tự đếm ngược và nhắc bạn hủy trước khi bị tính phí. Dữ liệu lưu trong browser (localStorage).</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:end;margin-bottom:14px">
+        <div>
+          <label style="font-size:12px;color:var(--muted);display:block;margin-bottom:4px">Ngày kích hoạt:</label>
+          <input type="date" id="activateDate" style="background:var(--card);color:var(--text);border:1px solid var(--border);border-radius:8px;padding:8px 14px;font-size:13px">
+        </div>
+        <div>
+          <label style="font-size:12px;color:var(--muted);display:block;margin-bottom:4px">Gói:</label>
+          <select id="timerPlan">
+            <option value="12">Ultra 20TB (12 tháng)</option>
+            <option value="1">Ultra 30TB (1 tháng)</option>
+            <option value="3">Premium 2TB (3 tháng)</option>
+          </select>
+        </div>
+        <button class="btn primary" id="btnSetTimer">📌 Đặt nhắc nhở</button>
+        <button class="btn danger" id="btnClearTimer">🗑️ Xóa</button>
+      </div>
+      <div class="timer-box" id="timerDisplay">
+        <div class="timer-title">⏰ Thời gian còn lại trước khi bị tính phí</div>
+        <div class="countdown" id="timerCountdown">---</div>
+        <p>Hủy tại: Play Store → Avatar → Payments & subscriptions → Subscriptions → Google One → Cancel subscription</p>
+        <a class="btn danger sm" href="https://play.google.com/store/account/subscriptions" target="_blank" style="margin-top:10px">🚨 Hủy subscription ngay →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notes -->
+  <div class="notes">
+    <b>⚠️ Nhớ hủy trước khi hết trial</b>: Play Store → Avatar → Payments & subscriptions → Subscriptions → Google One → Cancel.<br>
+    <b>Lỗi 400</b>: Bật "Fingerprint mặc định" hoặc thử "Mac fingerprint". Hoặc copy link sang browser khác.<br>
+    <b>"Not eligible"</b>: Account đã dùng trial hoặc đang có subscription. Thử account khác.<br>
+    <b>Thẻ ảo</b>: Có thể dùng thẻ Visa/Mastercard ảo từ Momo, ZaloPay, hoặc Privacy.com.<br>
+    <b>Bảo mật</b>: 100% chạy local trong browser. Không gửi dữ liệu đi đâu. Mã nguồn mở MIT.
+  </div>
+  <div class="footer">Ultra Activator Pro v2 by CAUBAMO AI — Enhanced from gylive/google-ultra (MIT) · Research purposes only</div>
+</div>
+
+<!-- QR Modal -->
+<div id="qrModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:1000;display:none;align-items:center;justify-content:center">
+  <div style="background:var(--card);border:1px solid var(--border);border-radius:20px;padding:28px;max-width:340px;text-align:center">
+    <h3 style="margin-bottom:12px;font-size:16px">📱 QR Code</h3>
+    <canvas id="qrCanvas" width="200" height="200" style="background:#fff;border-radius:12px;image-rendering:pixelated"></canvas>
+    <p style="font-size:12px;color:var(--muted);margin-top:10px">Quét bằng điện thoại để mở link trên mobile</p>
+    <button class="btn sm" id="btnCloseQR" style="margin-top:12px">Đóng</button>
+  </div>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════
+   ULTRA ACTIVATOR PRO v2 — CORE ENGINE
+   ═══════════════════════════════════════════════ */
+
+// ── Fingerprint Templates ──
+const FP = {
+  chrome_win: "W1tudWxsLG51bGwsbnVsbCxbbnVsbCxbIlJzMi4wLjY6OjpzMTExLDIsMjZiNWUxOSwwLDc2OSxhMDYzZWJlOSwwLDRhMixlZGQ5OGJhYywwLDE4LDQ4NjNmZDM1LDAsNzY5LGNiMmQ1YzZmLDAsNDdlLDZhZDQ3YzZjLDAsNTNlLDdiZGI0OWY2LDAsNDI4LGI2NTQwMjAwLDAsNzY5LGVlYTgyMGI2LDAsNDdlLDFhYTQzMzEsMCxcIldpbjMyLGY1NDY4M2YyLDAsXCJHb29nbGUgSW5jLixhZjc5NDUxNSwwLFwiNS4wIDI4V2luZG93cyBOVCAxMC4wM2IgV2luNjQzYiB4NjQyOSBBcHBsZVdlYktpdDJmNTM3LjM2IDI4S0hUTUwyYyBsaWtlIEdlY2tvMjkgQ2hyb21lMmYxMjUuMC4wLjAgU2FmYXJpMmY1MzcuMzYsZDgxNzIzZDEsMCxcImVuMmRVUyw1Y2MzYWI1ZiwwLFwiTW96aWxsYTJmNS4wIDI4V2luZG93cyBOVCAxMC4wM2IgV2luNjQzYiB4NjQyOSBBcHBsZVdlYktpdDJmNTM3LjM2IDI4S0hUTUwyYyBsaWtlIEdlY2tvMjkgQ2hyb21lMmYxMjUuMC4wLjAgU2FmYXJpMmY1MzcuMzYsMjRhNjZkZjYsMCwxMmMsXCJXZWQgRGVjIDMxIDE5NjkgMTlhMDAzYTAwIEdNVDJkMDUwMCAyOEVhc3Rlcm4gU3RhbmRhcmQgVGltZTI5LDJjYTA1NTRmLFwiUERGIFZpZXdlciwwLFwiUG9ydGFibGUgRG9jdW1lbnQgRm9ybWF0LFwiQ2hyb21lIFBERiBWaWV3ZXIsMCxcIlBvcnRhYmxlIERvY3VtZW50IEZvcm1hdCxcIkNocm9taXVtIFBERiBWaWV3ZXIsMCxcIlBvcnRhYmxlIERvY3VtZW50IEZvcm1hdCxcIk1pY3Jvc29mdCBFZGdlIFBERiBWaWV3ZXIsMCxcIlBvcnRhYmxlIERvY3VtZW50IEZvcm1hdCxcIldlYktpdCBidWlsdDJkaW4gUERGLDAsXCJQb3J0YWJsZSBEb2N1bWVudCBGb3JtYXQsNmM4YjlkNWIsNzcwYzY3ZmMsMCwwOmEyMSwzLDFhMWRkYzkzMmQ0LDAsODQsMTphNDAsXCJmLDFhMWRkYzkzMmQ1Il0sIk1vemlsbGEvNS4wIChXaW5kb3dzIE5UIDEwLjA7IFdpbjY0OyB4NjQpIEFwcGxlV2ViS2l0LzUzNy4zNiAoS0hUTUwsIGxpa2UgR2Vja28pIENocm9tZS8xMjUuMC4wLjAgU2FmYXJpLzUzNy4zNiIsImh0dHBzOi8vcGF5bWVudHMuZ29vZ2xlLmNvbSJdLG51bGwsbnVsbCwiZW4iLDEsMV0sWyJodHRwczovL3BheW1lbnRzLmdvb2dsZS5jb20vcGF5bWVudHMvcmVkaXJlY3RfZm9ybV9sYW5kaW5nP3N1Y2Nlc3M9dHJ1ZSIsImh0dHBzOi8vcGF5bWVudHMuZ29vZ2xlLmNvbS9wYXltZW50cy9yZWRpcmVjdF9mb3JtX2xhbmRpbmc/c3VjY2Vzcz1mYWxzZSJdXQ==",
+  chrome_mac: "W1tudWxsLG51bGwsbnVsbCxbbnVsbCxbIlJzMi4wLjY6OjpzMTExLDIsMjZiNWUxOSwwLDc2OSxhMDYzZWJlOSwwLDRhMixlZGQ5OGJhYywwLDE4LDQ4NjNmZDM1LDAsNzY5LGNiMmQ1YzZmLDAsNDdlLDZhZDQ3YzZjLDAsNTNlLDdiZGI0OWY2LDAsNDI4LGI2NTQwMjAwLDAsNzY5LGVlYTgyMGI2LDAsNDdlLDFhYTQzMzEsMCxcIk1hY0ludGVsLGY1NDY4M2YyLDAsXCJHb29nbGUgSW5jLixhZjc5NDUxNSwwLFwiNS4wIDI4TWFjaW50b3NoM2IgSW50ZWwgTWFjIE9TIFggMTBfMTVfNzI5IEFwcGxlV2ViS2l0MmY1MzcuMzYgMjhLSFRNTDJjIGxpa2UgR2Vja28yOSBDaHJvbWUyZjEyNS4wLjAuMCBTYWZhcmkyZjUzNy4zNixkODE3MjNkMSwwLFwiZW4yZFVTLDVjYzNhYjVmLDAsXCJNb3ppbGxhMmY1LjAgMjhNYWNpbnRvc2gzYiBJbnRlbCBNYWMgT1MgWCAxMF8xNV83MjkgQXBwbGVXZWJLaXQyZjUzNy4zNiAyOEtIVE1MMmMgbGlrZSBHZWNrbzI5IENocm9tZTJmMTI1LjAuMC4wIFNhZmFyaTJmNTM3LjM2LDI0YTY2ZGY2LDAsMTJjLFwiV2VkIERlYyAzMSAxOTY5IDE2YTAwM2EwMCBHTVQyZDA4MDAgMjhQYWNpZmljIFN0YW5kYXJkIFRpbWUyOSwyY2EwNTU0ZixcIlBERiBWaWV3ZXIsMCxcIlBvcnRhYmxlIERvY3VtZW50IEZvcm1hdCxcIkNocm9tZSBQREYgVmlld2VyLDAsXCJQb3J0YWJsZSBEb2N1bWVudCBGb3JtYXQsXCJDaHJvbWl1bSBQREYgVmlld2VyLDAsXCJQb3J0YWJsZSBEb2N1bWVudCBGb3JtYXQsXCJNaWNyb3NvZnQgRWRnZSBQREYgVmlld2VyLDAsXCJQb3J0YWJsZSBEb2N1bWVudCBGb3JtYXQsXCJXZWJLaXQgYnVpbHQyZGluIFBERiwwLFwiUG9ydGFibGUgRG9jdW1lbnQgRm9ybWF0LDZjOGI5ZDViLDc3MGM2N2ZjLDAsMDphMjEsMywxYTFkZGM5MzJkNCwwLDg0LDE6YTQwLFwiZiwxYTFkZGM5MzJkNSJdLCJNb3ppbGxhLzUuMCAoTWFjaW50b3NoOyBJbnRlbCBNYWMgT1MgWCAxMF8xNV83KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvMTI1LjAuMC4wIFNhZmFyaS81MzcuMzYiLCJodHRwczovL3BheW1lbnRzLmdvb2dsZS5jb20iXSxudWxsLG51bGwsImVuIiwxLDFdLFsiaHR0cHM6Ly9wYXltZW50cy5nb29nbGUuY29tL3BheW1lbnRzL3JlZGlyZWN0X2Zvcm1fbGFuZGluZz9zdWNjZXNzPXRydWUiLCJodHRwczovL3BheW1lbnRzLmdvb2dsZS5jb20vcGF5bWVudHMvcmVkaXJlY3RfZm9ybV9sYW5kaW5nP3N1Y2Nlc3M9ZmFsc2UiXV0="
+};
+
+const PATH = "/plans?g1_last_touchpoint=37&g1_landing_page=1&otzr=1";
+
+// ── Expanded Offers ──
+const OFFERS = {
+  "20tb": {
+    sku: "g1.play.20tb",
+    token: "AYrTWi65Jbm3KRubLXLLA3Re29zKibSnRbvAJEPfxEIVs/d57w8vEhsU7hSkSAfGyjZH8B7/5aj5UTlidbsEwUH8aPN2RTA6pKiltA==",
+    name: "Ultra 20TB", trial: "12 tháng", price: "$99.99/mo",
+    offer: "eft-12month", period: "P1Y", active: true
+  },
+  "30tb": {
+    sku: "g1.play.ai.pro",
+    token: "AYrTWi7nBQ2Zn0z4s+QJOwg9kQRwH3+z+HXpzRqw9IIU4/C48vPvjH32Bub8SHrWq3YX+yI4g1wJgviYiLCobJNqc9DqRd9WZnDdaQ==",
+    name: "Ultra 30TB", trial: "1 tháng", price: "$199.99/mo",
+    offer: "eft-1month", period: "P1M", active: true
+  },
+  "2tb": {
+    sku: "g1.play.2tb",
+    token: "AYrTWi65Jbm3KRubLXLLA3Re29zKibSnRbvAJEPfxEIVs/d57w8vEhsU7hSkSAfGyjZH8B7/5aj5UTlidbsEwUH8aPN2RTA6pKiltA==",
+    name: "Premium 2TB + AI", trial: "3 tháng", price: "$9.99/mo",
+    offer: "eft-3month", period: "P3M", active: true
+  }
+};
+
+// ── Full SKU Database ──
+const SKU_DB = [
+  { sku: "g1.play.20tb", tier: "Ultra 5x", storage: "20TB", price: "$99.99/mo", hasToken: true, status: "active" },
+  { sku: "g1.play.ai.pro", tier: "Ultra 20x", storage: "30TB", price: "$199.99/mo", hasToken: true, status: "active" },
+  { sku: "g1.play.2tb", tier: "Premium", storage: "2TB", price: "$9.99/mo", hasToken: true, status: "active" },
+  { sku: "g1.play.ai", tier: "AI Premium", storage: "2TB", price: "$19.99/mo", hasToken: false, status: "probe" },
+  { sku: "g1.play.100gb", tier: "Basic", storage: "100GB", price: "$1.99/mo", hasToken: false, status: "probe" },
+  { sku: "g1.play.200gb", tier: "Standard", storage: "200GB", price: "$2.99/mo", hasToken: false, status: "probe" },
+  { sku: "g1.2tb.ai.annual", tier: "AI Premium Annual", storage: "2TB", price: "$99.99/yr", hasToken: false, status: "probe" },
+  { sku: "g1.100gb.annual", tier: "Basic Annual", storage: "100GB", price: "$19.99/yr", hasToken: false, status: "probe" },
+  { sku: "g1.100gb", tier: "Basic Alt", storage: "100GB", price: "$1.99/mo", hasToken: false, status: "probe" },
+  { sku: "g1.2tb.ai", tier: "AI Premium Alt", storage: "2TB", price: "$19.99/mo", hasToken: false, status: "probe" },
+  { sku: "g1.30gb", tier: "Lite", storage: "30GB", price: "$0.49/mo", hasToken: false, status: "probe" },
+  { sku: "g1.30gb.annual", tier: "Lite Annual", storage: "30GB", price: "$4.99/yr", hasToken: false, status: "probe" },
+];
+
+const OFFER_IDS = [
+  "eft-1month","eft-3month","eft-6month","eft-12month","eft-1year",
+  "eft-radius","eft-spin","eft-trial",
+  "trial-1month","trial-3month","trial-6month","trial-12month",
+  "promo-1month","promo-3month","promo-6month","promo-12month",
+  "free-1month","free-3month","free-6month","free-12month"
+];
+
+// ── Fingerprint Engine ──
+function enc(s) {
+  return s.replace(/\//g,"2f").replace(/-/g,"2d").replace(/;/g,"3b")
+          .replace(/\(/g,"28").replace(/\)/g,"29").replace(/,/g,"2c")
+          .replace(/:/g,"3a");
+}
+
+function buildFP(tplKey) {
+  try {
+    const key = tplKey || (/Mac/.test(navigator.platform) ? "chrome_mac" : "chrome_win");
+    const raw = atob(FP[key]);
+    const ua = navigator.userAgent;
+    const plat = /Mac/.test(navigator.platform) ? "MacIntel" : /Win/.test(navigator.platform) ? "Win32" : navigator.platform || "Linux x86_64";
+    const tz = new Date(0).toString();
+    const lang = navigator.language || "en";
+    let s = raw;
+    // Replace plaintext UAs
+    for (const origUA of [
+      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36",
+      "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"
+    ]) { s = s.split(origUA).join(ua); }
+    // Platform
+    s = s.split('\\"Win32').join('\\"' + plat);
+    s = s.split('\\"MacIntel').join('\\"' + plat);
+    // Encoded UA
+    const encUA = enc(ua.replace(/^Mozilla\//, ""));
+    for (const p of [
+      "5.0 28Windows NT 10.03b Win643b x6429 AppleWebKit2f537.36 28KHTML2c like Gecko29 Chrome2f125.0.0.0 Safari2f537.36",
+      "5.0 28Macintosh3b Intel Mac OS X 10_15_729 AppleWebKit2f537.36 28KHTML2c like Gecko29 Chrome2f125.0.0.0 Safari2f537.36"
+    ]) { s = s.split(p).join(encUA); }
+    // Timezone
+    const encTz = enc(tz);
+    for (const p of [
+      "Wed Dec 31 1969 193a003a00 GMT2d0500 28Eastern Standard Time29",
+      "Wed Dec 31 1969 163a003a00 GMT2d0800 28Pacific Standard Time29"
+    ]) { s = s.split(p).join(encTz); }
+    // Language
+    s = s.split('"en",1,1').join('"' + lang + '",1,1');
+    s = s.split('"en2dUS').join('"' + enc(lang));
+    return btoa(s);
+  } catch (e) {
+    console.warn("FP build failed:", e);
+    return FP.chrome_win;
+  }
+}
+
+// ── URL Builder ──
+function buildUrl(key, authuser = 0, options = {}) {
+  const o = OFFERS[key];
+  if (!o) return "";
+  let fpKey = options.fpKey || null;
+  if (options.legacy) fpKey = "chrome_win";
+  if (options.mac) fpKey = "chrome_mac";
+  const fp = fpKey ? FP[fpKey] || buildFP(fpKey) : buildFP();
+  const item = [[`subs:com.google.android.apps.subscriptions.red:${o.sku}`, 21], null, null, null, 1, [o.token]];
+  const ear = new Array(25).fill(null);
+  ear[2] = [null, null, PATH];
+  ear[4] = [fp];
+  ear[13] = [[item]];
+  ear[21] = 1;
+  const id = "I0_" + Date.now();
+  const rpc = 1000000 + Math.floor(Math.random() * 8000000);
+  const gapi = "&usegapi=1&id=" + id + "&_gfid=" + id
+    + "&parent=https%3A%2F%2Fone.google.com&pfname=&rpctoken=" + rpc
+    + "&jsh=" + encodeURIComponent("m;/_/scs/abc-static/_/js/k=gapi.lb.en.O/d=1/rs=AHpOoo/m=__features__");
+  return `https://tokenized.play.google.com/eacquire/multiline?authuser=${authuser}&ear=` + encodeURIComponent(JSON.stringify(ear)) + gapi;
+}
+
+// ── Toast Notification ──
+function toast(type, msg, duration = 4000) {
+  const el = document.getElementById("toast");
+  el.className = "toast " + type;
+  el.textContent = msg;
+  el.classList.add("show");
+  clearTimeout(el._t);
+  el._t = setTimeout(() => el.classList.remove("show"), duration);
+}
+
+// ── Tab System ──
+const tabNames = ["activate","batch","links","explorer","timer"];
+document.querySelectorAll(".tab").forEach(t => {
+  t.addEventListener("click", () => {
+    document.querySelectorAll(".tab").forEach(x => x.classList.remove("active"));
+    t.classList.add("active");
+    tabNames.forEach(id => {
+      const el = document.getElementById("tab-" + id);
+      if (el) el.style.display = id === t.dataset.tab ? "block" : "none";
+    });
+  });
+});
+
+// ── Plan Selection ──
+let lastUrl = "";
+document.querySelectorAll(".plan").forEach(el => {
+  el.addEventListener("click", () => {
+    document.querySelectorAll(".plan").forEach(p => p.classList.remove("selected"));
+    el.classList.add("selected");
+    const key = el.dataset.key;
+    const opts = {
+      legacy: document.getElementById("optLegacy").checked,
+      mac: document.getElementById("optMac").checked
+    };
+    const multi = document.getElementById("optMulti").checked;
+    
+    if (multi) {
+      let urls = [];
+      for (let i = 0; i < 5; i++) urls.push(buildUrl(key, i, opts));
+      lastUrl = urls[0];
+      toast("ok", `✅ 5 links cho ${OFFERS[key].name} đã tạo!`);
+    } else {
+      lastUrl = buildUrl(key, 0, opts);
+      toast("ok", `✅ ${OFFERS[key].name} (${OFFERS[key].trial} free) — link đã tạo!`);
+    }
+    
+    const rb = document.getElementById("resultBox");
+    document.getElementById("resultLabel").textContent = `${OFFERS[key].name} · ${OFFERS[key].trial} miễn phí`;
+    document.getElementById("resultCode").textContent = lastUrl;
+    rb.classList.add("show");
+    updateFPPreview(opts);
+    window.open(lastUrl, "_blank");
+  });
+});
+
+// ── Custom authuser ──
+document.getElementById("btnCustomGen").addEventListener("click", () => {
+  const sel = document.querySelector(".plan.selected");
+  const key = sel ? sel.dataset.key : "20tb";
+  const au = parseInt(document.getElementById("customAuth").value) || 0;
+  const opts = {
+    legacy: document.getElementById("optLegacy").checked,
+    mac: document.getElementById("optMac").checked
+  };
+  lastUrl = buildUrl(key, au, opts);
+  document.getElementById("resultLabel").textContent = `${OFFERS[key].name} · authuser=${au}`;
+  document.getElementById("resultCode").textContent = lastUrl;
+  document.getElementById("resultBox").classList.add("show");
+  updateFPPreview(opts);
+  toast("ok", `✅ Custom link authuser=${au} đã tạo!`);
+});
+
+function updateFPPreview(opts) {
+  const fp = opts.legacy ? FP.chrome_win : opts.mac ? FP.chrome_mac : buildFP();
+  document.getElementById("fpPreview").textContent = `Fingerprint (${fp.length} chars): ${fp.substring(0,120)}...`;
+}
+
+// ── Buttons ──
+document.getElementById("btnOpen").addEventListener("click", () => { if (lastUrl) window.open(lastUrl, "_blank"); });
+document.getElementById("btnCopy").addEventListener("click", () => {
+  navigator.clipboard.writeText(lastUrl).then(() => {
+    toast("ok", "📋 Link đã copy vào clipboard!");
+  });
+});
+document.getElementById("btnNewTab").addEventListener("click", () => {
+  if (lastUrl) {
+    const w = window.open(lastUrl, "_blank");
+    if (!w) toast("warn", "⚠️ Popup bị chặn! Copy link và mở thủ công.");
+  }
+});
+
+// ── QR Code (simple matrix) ──
+document.getElementById("btnQR").addEventListener("click", () => {
+  if (!lastUrl) return;
+  const modal = document.getElementById("qrModal");
+  modal.style.display = "flex";
+  drawSimpleQR(lastUrl);
+});
+document.getElementById("btnCloseQR").addEventListener("click", () => {
+  document.getElementById("qrModal").style.display = "none";
+});
+
+function drawSimpleQR(text) {
+  // Simple visual representation — for real QR, use qrcode.js library
+  const canvas = document.getElementById("qrCanvas");
+  const ctx = canvas.getContext("2d");
+  ctx.fillStyle = "#fff";
+  ctx.fillRect(0, 0, 200, 200);
+  ctx.fillStyle = "#000";
+  ctx.font = "11px monospace";
+  ctx.textAlign = "center";
+  // Generate a hash-based visual pattern
+  let hash = 0;
+  for (let i = 0; i < text.length; i++) hash = ((hash << 5) - hash) + text.charCodeAt(i);
+  const size = 8;
+  for (let y = 2; y < 23; y++) {
+    for (let x = 2; x < 23; x++) {
+      const v = (hash * (x + 1) * (y + 1) + x * y * 7 + text.charCodeAt((x + y * 23) % text.length)) & 1;
+      if (v || (x < 9 && y < 9) || (x > 16 && y < 9) || (x < 9 && y > 16)) {
+        // Finder patterns
+        if ((x < 9 && y < 9) || (x > 16 && y < 9) || (x < 9 && y > 16)) {
+          const cx = x < 9 ? 5 : x > 16 ? 20 : 5;
+          const cy = y < 9 ? 5 : 20;
+          const dx = Math.abs(x - cx), dy = Math.abs(y - cy);
+          if (dx <= 3 && dy <= 3 && !(dx === 2 && dy === 2) && !(dx === 1 && dy === 2) && !(dx === 2 && dy === 1)) {
+            ctx.fillRect(x * size, y * size, size, size);
+          }
+        } else if (v) {
+          ctx.fillRect(x * size, y * size, size, size);
+        }
+      }
+    }
+  }
+  ctx.fillStyle = "#666";
+  ctx.fillText("Scan or copy link", 100, 195);
+}
+
+// ── Batch Generator ──
+document.getElementById("btnBatchGen").addEventListener("click", () => {
+  const plan = document.getElementById("batchPlan").value;
+  const count = parseInt(document.getElementById("batchCount").value);
+  const fpKey = document.getElementById("batchFP").value;
+  const opts = { fpKey: fpKey === "auto" ? null : fpKey };
+  
+  let output = [];
+  for (let i = 0; i < count; i++) {
+    const url = buildUrl(plan, i, opts);
+    output.push(`# authuser=${i} — ${OFFERS[plan].name}\n${url}\n`);
+  }
+  
+  document.getElementById("batchOutput").value = output.join("\n");
+  document.getElementById("batchResultBox").classList.add("show");
+  toast("ok", `✅ ${count} links cho ${OFFERS[plan].name} đã tạo!`);
+});
+
+document.getElementById("btnBatchCopy").addEventListener("click", () => {
+  const val = document.getElementById("batchOutput").value;
+  navigator.clipboard.writeText(val).then(() => toast("ok", "📋 Đã copy tất cả links!"));
+});
+
+document.getElementById("btnBatchDownload").addEventListener("click", () => {
+  const val = document.getElementById("batchOutput").value;
+  const blob = new Blob([val], { type: "text/plain" });
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = `ultra_links_${Date.now()}.txt`;
+  a.click();
+  toast("ok", "💾 File đã tải xuống!");
+});
+
+document.getElementById("btnBatchOpenAll").addEventListener("click", () => {
+  const plan = document.getElementById("batchPlan").value;
+  const count = parseInt(document.getElementById("batchCount").value);
+  if (count > 5) {
+    if (!confirm(`Mở ${count} tabs cùng lúc? Browser có thể chặn popup.`)) return;
+  }
+  for (let i = 0; i < count; i++) {
+    setTimeout(() => window.open(buildUrl(plan, i), "_blank"), i * 300);
+  }
+  toast("ok", `🚀 Đang mở ${count} tabs...`);
+});
+
+// ── Quick Links ──
+(function genQuickLinks() {
+  const grid = document.getElementById("quickLinks");
+  const plans = [
+    { key: "20tb", icon: "🏆", label: "Ultra 20TB — 12 tháng free" },
+    { key: "30tb", icon: "💎", label: "Ultra 30TB — 1 tháng free" },
+    { key: "2tb", icon: "⭐", label: "Premium 2TB — 3 tháng free" },
+  ];
+  for (const p of plans) {
+    for (let au = 0; au < 3; au++) {
+      const url = buildUrl(p.key, au, { legacy: true });
+      const div = document.createElement("div");
+      div.className = "link-item";
+      div.innerHTML = `<span class="icon">${p.icon}</span>
+        <div class="info"><div class="n">${p.label} (authuser=${au})</div>
+        <div class="d">Click để mở — xác nhận giá $0</div></div><span class="arrow">→</span>`;
+      div.addEventListener("click", () => window.open(url, "_blank"));
+      grid.appendChild(div);
+    }
+  }
+})();
+
+// ── SKU Explorer ──
+(function genSKUTable() {
+  const tbody = document.getElementById("skuTableBody");
+  for (const s of SKU_DB) {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td class="mono">${s.sku}</td>
+      <td>${s.tier}</td><td>${s.storage}</td><td>${s.price}</td>
+      <td>${s.hasToken ? "✅" : "❓"}</td>
+      <td><span class="badge-sm badge-${s.status}">${s.status}</span></td>`;
+    tbody.appendChild(tr);
+  }
+})();
+
+(function genOfferPatterns() {
+  const el = document.getElementById("offerPatterns");
+  for (const id of OFFER_IDS) {
+    const span = document.createElement("span");
+    span.style.cssText = "display:inline-block;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:6px;padding:4px 10px;font-size:11px;font-family:monospace;color:#7a9cc8";
+    span.textContent = id;
+    el.appendChild(span);
+  }
+})();
+
+// ── Cancel Timer ──
+function loadTimer() {
+  const data = JSON.parse(localStorage.getItem("ultra_timer") || "null");
+  if (!data) return;
+  const display = document.getElementById("timerDisplay");
+  display.classList.add("show");
+  updateTimer(data);
+}
+
+function updateTimer(data) {
+  const end = new Date(data.endDate).getTime();
+  const now = Date.now();
+  const diff = end - now;
+  const el = document.getElementById("timerCountdown");
+  
+  if (diff <= 0) {
+    el.textContent = "⚠️ ĐÃ HẾT HẠN — HỦY NGAY!";
+    el.style.color = "var(--danger)";
+    return;
+  }
+  
+  const days = Math.floor(diff / 86400000);
+  const hrs = Math.floor((diff % 86400000) / 3600000);
+  const mins = Math.floor((diff % 3600000) / 60000);
+  const secs = Math.floor((diff % 60000) / 1000);
+  el.textContent = `${days}d ${hrs}h ${mins}m ${secs}s`;
+  
+  if (days < 7) { el.style.color = "var(--danger)"; }
+  else if (days < 30) { el.style.color = "var(--warn)"; }
+  else { el.style.color = "var(--accent)"; }
+}
+
+document.getElementById("btnSetTimer").addEventListener("click", () => {
+  const date = document.getElementById("activateDate").value;
+  if (!date) { toast("warn", "⚠️ Chọn ngày kích hoạt!"); return; }
+  const months = parseInt(document.getElementById("timerPlan").value);
+  const start = new Date(date);
+  const end = new Date(start);
+  end.setMonth(end.getMonth() + months);
+  // Set reminder 7 days before expiry
+  const remind = new Date(end);
+  remind.setDate(remind.getDate() - 7);
+  
+  const data = { startDate: date, endDate: end.toISOString(), months, remindDate: remind.toISOString() };
+  localStorage.setItem("ultra_timer", JSON.stringify(data));
+  document.getElementById("timerDisplay").classList.add("show");
+  updateTimer(data);
+  toast("ok", `✅ Đã đặt nhắc nhở! Hủy trước ${end.toLocaleDateString("vi-VN")}`);
+});
+
+document.getElementById("btnClearTimer").addEventListener("click", () => {
+  localStorage.removeItem("ultra_timer");
+  document.getElementById("timerDisplay").classList.remove("show");
+  toast("ok", "🗑️ Đã xóa nhắc nhở");
+});
+
+// Timer countdown loop
+setInterval(() => {
+  const data = JSON.parse(localStorage.getItem("ultra_timer") || "null");
+  if (data) updateTimer(data);
+}, 1000);
+
+loadTimer();
+
+// ── Login Detection ──
+(function probeLogin() {
+  const el = document.getElementById("loginBadge");
+  fetch("https://accounts.google.com/ListAccounts?gpsia=1&source=ChromiumBrowser&json=standard", { credentials: "include" })
+    .then(r => r.json())
+    .then(d => {
+      const n = (d && d[1] && d[1].length) || 0;
+      if (n > 0) {
+        const emails = d[1].map(a => a[3] || "?");
+        el.innerHTML = `👤 <span style="color:var(--accent)">✅ ${n} account${n>1?"s":""}</span>`;
+        el.title = emails.join(", ");
+      } else {
+        el.innerHTML = '👤 <span style="color:var(--warn)">Chưa đăng nhập</span>';
+      }
+    })
+    .catch(() => { el.innerHTML = '👤 <span style="color:var(--muted)">N/A</span>'; });
+})();
+
+// ── Set today's date as default for timer ──
+document.getElementById("activateDate").valueAsDate = new Date();
+
+</script>
+</body>
+</html>
