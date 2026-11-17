@@ -404,3 +404,132 @@ python ultra_link_gen.py --timer 2026-12-18
 
 ### Extension cancel timer:
 Click **"✅ Activated"** button in the floating panel or popup to start the countdown.
+
+
+---
+
+## 🔥 5 INJECTION VECTORS (Cách đưa token vào checkout)
+
+Tất cả 5 vector dưới đây đều thực hiện **cùng 1 việc** như Extension gốc (Method ①): **hook XHR/fetch/iframe → inject offer token → checkout $0.00**. Khác nhau ở **phương tiện đưa code injection vào trình duyệt**.
+
+### Vector A: Chrome Extension (Original — Method ①)
+
+**File**: `extension/inject.js` + `extension/content.js`
+
+Cách đã phân tích ở trên. Cài extension → tự động hook khi mở `one.google.com`.
+
+---
+
+### Vector B: Console Injection (Không cần Extension)
+
+**File**: [`injectors/console_inject.js`](injectors/console_inject.js)
+
+```
+1. Mở https://one.google.com/about/plans
+2. Nhấn F12 → tab Console
+3. Paste toàn bộ nội dung file console_inject.js
+4. Nhấn Enter
+5. Click "Subscribe" → $0.00
+```
+
+**Hooks**: XHR ✓ | iframe.src ✓ | setAttribute ✓ | fetch ✓
+
+**Ưu điểm**: Không cần cài extension, hoạt động trên mọi Chromium browser.
+**Nhược điểm**: Phải paste lại mỗi lần mở trang mới.
+
+---
+
+### Vector C: Tampermonkey/Violentmonkey Userscript
+
+**File**: [`injectors/userscript.user.js`](injectors/userscript.user.js)
+
+```
+1. Cài Tampermonkey (Chrome) hoặc Violentmonkey (Firefox/Chrome/Edge)
+2. Mở Tampermonkey Dashboard → "+" (Create new script)
+3. Paste toàn bộ file userscript.user.js → Ctrl+S
+4. Mở https://one.google.com/about/plans
+5. Script tự động chạy
+6. Click Subscribe → $0.00
+```
+
+**Hooks**: XHR ✓ | iframe.src ✓ | setAttribute ✓ | fetch ✓
+
+**Ưu điểm**: Tự động chạy mỗi lần mở trang, hoạt động cross-browser (Chrome, Firefox, Edge, Brave, Opera, Vivaldi).
+**Cấu hình plan**: Sửa biến `PLAN` ở dòng đầu (mặc định: `ultra20tb_12m`).
+
+---
+
+### Vector D: Bookmarklet (1-Click)
+
+**File**: [`injectors/bookmarklet.js`](injectors/bookmarklet.js)
+
+```
+1. Tạo bookmark mới trong trình duyệt
+2. Đặt tên: "G1 Ultra $0"
+3. Paste dòng javascript:void(function()... trong file làm URL
+4. Mở https://one.google.com/about/plans
+5. Click bookmark "G1 Ultra $0"
+6. Alert hiện "G1 Ultra $0 ACTIVE"
+7. Click Subscribe → $0.00
+```
+
+**Hooks**: XHR ✓ | iframe.src ✓ | fetch ✓
+
+**Ưu điểm**: 1-click, không cần cài gì, lưu vĩnh viễn trong bookmark bar.
+
+---
+
+### Vector E: Chrome DevTools Protocol (CDP)
+
+**File**: [`injectors/cdp_inject.py`](injectors/cdp_inject.py)
+
+```bash
+# 1. Khởi động Chrome với debugging port:
+chrome.exe --remote-debugging-port=9222 --user-data-dir="%TEMP%\g1chrome"
+
+# 2. Mở https://one.google.com/about/plans trong Chrome đó
+
+# 3. Chạy script:
+python injectors/cdp_inject.py
+
+# 4. Click Subscribe trong Chrome → $0.00
+```
+
+**Hooks**: Inject JS qua CDP Runtime.evaluate → XHR ✓ | iframe.src ✓ | fetch ✓
+
+**Ưu điểm**: Inject từ bên ngoài trình duyệt (Python script), có thể tự động hóa. Không cần mở Console.
+**Yêu cầu**: Python 3.7+ (stdlib only).
+
+---
+
+### Vector F: Proxy-Level Interception (mitmproxy)
+
+**File**: [`injectors/proxy_inject.py`](injectors/proxy_inject.py)
+
+```bash
+# Với mitmproxy:
+mitmdump -s injectors/proxy_inject.py -p 8080
+
+# Set browser proxy → localhost:8080
+# Cài CA cert: truy cập mitm.it
+# Mở https://one.google.com/about/plans → Subscribe → $0.00
+```
+
+**Hooks**: Intercept HTTP request at proxy level → patch Ngbm body + eacquire URL
+
+**Ưu điểm**: Hoạt động cho MỌI trình duyệt và cả thiết bị mobile trên cùng mạng. Mạnh nhất.
+**Yêu cầu**: mitmproxy (`pip install mitmproxy`).
+
+---
+
+### So sánh 5+1 Injection Vectors
+
+| Vector | Phương tiện | Tự động | Cross-browser | Cần cài | Hooks |
+|--------|------------|:-------:|:-------------:|---------|-------|
+| A. Extension | Chrome Extension | ✅ | Chrome only | Extension | XHR+iframe+attr |
+| B. Console | DevTools Console | ❌ | Chromium | Không | XHR+iframe+attr+fetch |
+| C. Userscript | Tampermonkey | ✅ | Tất cả | Tampermonkey | XHR+iframe+attr+fetch |
+| D. Bookmarklet | Bookmark | 1-click | Tất cả | Không | XHR+iframe+fetch |
+| E. CDP | Python + Chrome | Script | Chrome | Python | XHR+iframe+fetch |
+| F. Proxy | mitmproxy | ✅ | Tất cả + Mobile | mitmproxy | HTTP-level |
+

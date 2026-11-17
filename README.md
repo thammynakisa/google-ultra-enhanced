@@ -21,6 +21,21 @@ google-ultra-enhanced/
 └── web/index.html       ← Web UI (5-tab glass dark)
 ```
 
+## 🔥 6 Injection Vectors
+
+All vectors do the SAME thing: **hook XHR/fetch/iframe → inject offer token → $0.00 checkout**.
+
+| Vector | Method | Needs Install? |
+|--------|--------|:--------------:|
+| **A** | Chrome Extension (original) | Extension |
+| **B** | [Console Injection](injectors/console_inject.js) | Nothing |
+| **C** | [Tampermonkey Userscript](injectors/userscript.user.js) | Tampermonkey |
+| **D** | [Bookmarklet (1-click)](injectors/bookmarklet.js) | Nothing |
+| **E** | [CDP Python Script](injectors/cdp_inject.py) | Python 3 |
+| **F** | [mitmproxy Addon](injectors/proxy_inject.py) | mitmproxy |
+
+See [METHODS.md](METHODS.md) for detailed usage instructions.
+
 ## 🚀 8 Activation Methods
 
 | # | Method | Type |
